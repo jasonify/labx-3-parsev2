@@ -64,6 +64,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if( userX == nil){
             cell.msgStack.arrangedSubviews[1].isHidden  = true
         } else{
+            cell.msgStack.arrangedSubviews[1].isHidden  = false
+
             (cell.msgStack.arrangedSubviews[1] as! UILabel).text =
         "u: \(userX!.username!)  \(userX!.email!) "
         }
