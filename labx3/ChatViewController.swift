@@ -53,9 +53,20 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let obj = msgs?[indexPath.row]
         let msgX =  obj?.object(forKey: "text") as! String
         
+        let userX =  obj?.object(forKey: "user") as? PFUser
+
         
        
         (cell.msgStack.arrangedSubviews[0] as! UILabel).text = msgX
+        
+        
+        
+        if( userX == nil){
+            cell.msgStack.arrangedSubviews[1].isHidden  = true
+        } else{
+            (cell.msgStack.arrangedSubviews[1] as! UILabel).text =
+        "u: \(userX!.username!)  \(userX!.email!) "
+        }
         
         
         
@@ -70,6 +81,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("GOT STUFF")
         
         var query = PFQuery(className:"MessageSF")
+        query.includeKey("user")
         //query.whereKey("playerName", equalTo:"Sean Plott")
         query.findObjectsInBackground {
             (objects: [PFObject]?, error: Error?) -> Void in
@@ -102,6 +114,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         var gameScore = PFObject(className:"MessageSF")
        
         gameScore["text"] = chatField.text
+        
+        gameScore["user"] = PFUser.current()
         chatField.text = ""
         gameScore.saveInBackground {
             (success: Bool, error: Error?) -> Void in
