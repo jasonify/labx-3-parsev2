@@ -1,0 +1,6 @@
+framework module Pods_labx3 {
+  umbrella header "Pods-labx3-umbrella.h"
+
+  export *
+  module * { export * }
+}
