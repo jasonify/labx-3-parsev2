@@ -145,12 +145,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="0rE-4z-FDb"/>
                     <connections>
                         <outlet property="chatField" destination="gDg-cj-BsZ" id="RDb-qt-6HP"/>
                         <outlet property="tableView" destination="fdP-qU-pH4" id="cyi-6s-cKG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Id4-Ir-UM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1663.2" y="46.326836581709152"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rXc-Tg-hdc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nmh-bQ-DHM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Cl-9h-li3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rcZ-ZJ-heU" kind="relationship" relationship="rootViewController" id="8Oi-sL-SGp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t9Z-zY-M8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="724" y="46.326836581709152"/>
         </scene>

@@ -9,11 +9,12 @@
 import UIKit
 
 import Parse
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     
     var user : PFUser?
     var msgs : [PFObject]?
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -21,6 +22,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+      
+        
+        //picker!.delegate = self
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -36,6 +42,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if(msgs == nil){
             return 0
@@ -43,6 +51,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         return msgs!.count
     }
     
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        print("IMG!!")
+        print(info)
+    }
+
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
@@ -64,10 +78,14 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if( userX == nil){
             cell.msgStack.arrangedSubviews[1].isHidden  = true
         } else{
+            
+            if(userX!.username != nil && userX!.email != nil){
             cell.msgStack.arrangedSubviews[1].isHidden  = false
 
+            
             (cell.msgStack.arrangedSubviews[1] as! UILabel).text =
-        "u: \(userX!.username!)  \(userX!.email!) "
+                "u: \(userX!.username!) ) "
+            }
         }
         
         
@@ -112,6 +130,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     @IBAction func onSendChat(_ sender: AnyObject) {
+        
+        var imgPicker = UIImagePickerController()
+        imgPicker.delegate = self
+        imgPicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+        imgPicker.allowsEditing = false
+
+        
+        
+        present(imgPicker, animated: false, completion: nil)
+        
         
         var gameScore = PFObject(className:"MessageSF")
        
