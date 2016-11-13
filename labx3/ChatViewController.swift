@@ -70,8 +70,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         let imageData = UIImagePNGRepresentation(chosenImage)
-        let imageFile = PFFile(name:"x22imag222e.png", data:imageData!)
+        let imageFile = PFFile(name:"x22imag222dsfse.png", data:imageData!)
       
+        // image fiel size
+        
         
         var imgData: NSData = NSData(data: UIImageJPEGRepresentation((chosenImage), 1)!)
         // var imgData: NSData = UIImagePNGRepresentation(image)
@@ -89,6 +91,24 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         gameScore["user"] = PFUser.current()
         chatField.text = ""
+
+
+
+
+
+        
+        imageFile?.saveInBackground({
+            (succeeded: Bool, error: Error?) -> Void in
+            // Handle success or failure here ...
+            print("YESSS!")
+            }, progressBlock: {
+                (percentDone: Int32) -> Void in
+                // Update your progress spinner here. percentDone will be between 0 and 100.
+                print("WTF")
+                print(percentDone)
+        })
+
+        
         gameScore.saveInBackground {
             (success: Bool, error: Error?) -> Void in
             if (success) {
@@ -104,8 +124,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
 
+        /*
+ 
+ 
         
-        
+        let str = "Working at Parse is great!"
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        let file = PFFile(name:"resume.txt", data:data)
+        file.saveInBackgroundWithBlock({
+            (succeeded: Bool, error: NSError?) -> Void in
+            // Handle success or failure here ...
+            }, progressBlock: {
+                (percentDone: Int32) -> Void in
+                // Update your progress spinner here. percentDone will be between 0 and 100.
+        })
+ */
         
         
         
