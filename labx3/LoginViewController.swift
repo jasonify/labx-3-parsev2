@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
             }
  */
         
-        PFUser.logInWithUsername(inBackground:  "myUsernameJason", password: "myPassword223232") { (user: PFUser?, error:Error?) in
+        PFUser.logInWithUsername(inBackground:  "myUsername22Jason", password: "myPasswor22d223232") { (user: PFUser?, error:Error?) in
             if let error = error {
                 print("ERROR")
             } else{
@@ -58,9 +58,9 @@ class LoginViewController: UIViewController {
     @IBAction func onSingup(_ sender: AnyObject) {
         
             var user = PFUser()
-            user.username = "myUsernameJason"
-            user.password = "myPassword223232"
-            user.email = "email@example.com"
+            user.username = "myUsername22Jason"
+            user.password = "myPasswor22d223232"
+            user.email = "email@exam2sdfple.com"
             // other fields can be set just like with PFObject
             user["phone"] = "415-392-0202"
             

@@ -12,6 +12,7 @@ import Parse
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     
+    @IBOutlet weak var imageViewPicked: UIImageView!
     var user : PFUser?
     var msgs : [PFObject]?
     
@@ -55,8 +56,23 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         print("IMG!!")
         print(info)
+        
+         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+         imageViewPicked.contentMode = .scaleAspectFit //3
+         imageViewPicked.image = chosenImage //4
+         dismiss(animated:true, completion: nil) //5
+         
+        
     }
 
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("CANCEL")
+        dismiss(animated: true, completion: nil)
+
+        
+        
+    }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
