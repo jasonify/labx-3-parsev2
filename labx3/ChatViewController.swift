@@ -33,6 +33,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
       //  fetchMsgs()
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ChatViewController.fetchMsgs), userInfo: nil, repeats: true)
+        
+        fetchMsgs()
 
         // Do any additional setup after loading the view.
     }
@@ -61,7 +63,51 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
          imageViewPicked.contentMode = .scaleAspectFit //3
          imageViewPicked.image = chosenImage //4
          dismiss(animated:true, completion: nil) //5
-         
+        
+        
+        
+        
+        
+        
+        let imageData = UIImagePNGRepresentation(chosenImage)
+        let imageFile = PFFile(name:"x22imag222e.png", data:imageData!)
+      
+        
+        var imgData: NSData = NSData(data: UIImageJPEGRepresentation((chosenImage), 1)!)
+        // var imgData: NSData = UIImagePNGRepresentation(image)
+        // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+        var imageSize: Int = imgData.length
+        print("size of image in KB:  \(Double(imageSize) / 1024.0) ")
+        
+
+        
+        var gameScore = PFObject(className:"MessageSF2017")
+        
+        gameScore["text"] = chatField.text
+        gameScore["imageFile"] = imageFile
+        gameScore["imageName"] = "My trip to Hawaii!"
+
+        gameScore["user"] = PFUser.current()
+        chatField.text = ""
+        gameScore.saveInBackground {
+            (success: Bool, error: Error?) -> Void in
+            if (success) {
+                
+                print("HELLO WORKED")
+                // The object has been saved.
+                //self.fetchMsgs()
+            } else {
+                
+                print("HELLO failed")
+                
+                // There was a problem, check error.description
+            }
+        }
+
+        
+        
+        
+        
         
     }
 
@@ -86,6 +132,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let userX =  obj?.object(forKey: "user") as? PFUser
 
         
+        
+        
        
         (cell.msgStack.arrangedSubviews[0] as! UILabel).text = msgX
         
@@ -102,6 +150,31 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             (cell.msgStack.arrangedSubviews[1] as! UILabel).text =
                 "u: \(userX!.username!) ) "
             }
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        let userImageFile = obj?.object(forKey: "imageFile") as?  PFFile
+        if let userImageFile = userImageFile {
+
+            userImageFile.getDataInBackground(block: { (imageData:Data?, error:Error?) in
+            
+                if error == nil {
+                    if let imageData = imageData {
+                        let image = UIImage(data:imageData)
+                        cell.imageSelected.image = image
+                    }
+                } else {
+                    print("error")
+                }
+                
+            })
+     
         }
         
         
@@ -116,7 +189,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
        
         print("GOT STUFF")
         
-        var query = PFQuery(className:"MessageSF")
+        var query = PFQuery(className:"MessageSF2017")
         query.includeKey("user")
         //query.whereKey("playerName", equalTo:"Sean Plott")
         query.findObjectsInBackground {
@@ -156,8 +229,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         present(imgPicker, animated: false, completion: nil)
         
+        /*
         
-        var gameScore = PFObject(className:"MessageSF")
+        var gameScore = PFObject(className:"MessageSF2016")
        
         gameScore["text"] = chatField.text
         
@@ -177,7 +251,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // There was a problem, check error.description
             }
         }
-
+        */
         
         
         
